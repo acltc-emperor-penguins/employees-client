@@ -30,6 +30,10 @@ class Employee
     employees
   end
 
+  def destroy
+    Unirest.delete("http://localhost:3000/employees/#{id}.json", headers:{ "Accept" => "application/json" }).body
+  end
+
   # def first_name
   #   @first_name
   # end
