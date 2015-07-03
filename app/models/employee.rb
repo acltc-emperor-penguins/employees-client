@@ -1,6 +1,6 @@
 class Employee
 
-  attr_accessor :first_name, :last_name, :email, :birthdate, :addresses
+  # attr_accessor :first_name, :last_name, :email, :birthdate, :addresses
 
   def initialize(hash)
     # hash == {"first_name" => "Jill", "last_name" => "Watson"}
