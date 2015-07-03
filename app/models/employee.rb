@@ -1,10 +1,9 @@
 class Employee
 
-  attr_accessor :first_name, :last_name, :email, :birthdate, :addresses, :id
+  attr_accessor :first_name, :last_name, :email, :birthdate, :addresses
 
   def initialize(hash)
     # hash == {"first_name" => "Jill", "last_name" => "Watson"}
-    @id = hash["id"]
     @first_name = hash["first_name"]
     @last_name = hash["last_name"]
     @email = hash["email"]
@@ -19,6 +18,15 @@ class Employee
   def self.find(id)
     employee_hash = Unirest.get("http://localhost:3000/employees/#{id}.json").body
     Employee.new(employee_hash)
+  end
+
+  def self.all
+    employees = []
+    employee_hashes = Unirest.get("http://localhost:3000/employees.json").body
+    employee_hashes.each do |hash|
+      employees << Employee.new(hash)
+    end
+    employees
   end
 
   # def first_name
