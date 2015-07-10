@@ -17,13 +17,13 @@ class Employee
   end
 
   def self.find(id)
-    employee_hash = Unirest.get("http://localhost:3000/employees/#{id}.json").body
+    employee_hash = Unirest.get("#{ENV['API_BASE_URL']}/employees/#{id}.json", headers:{ "Accept" => "application/json", "Authorization" => "Token token=#{ENV['API_KEY']}", "X-User-Email" => "#{ENV['API_EMAIL']}" }).body
     Employee.new(employee_hash)
   end
 
   def self.all
     employees = []
-    employee_hashes = Unirest.get("http://localhost:3000/employees.json").body
+    employee_hashes = Unirest.get("#{ENV['API_BASE_URL']}/employees.json", headers:{ "Accept" => "application/json", "Authorization" => "Token token=#{ENV['API_KEY']}", "X-User-Email" => "#{ENV['API_EMAIL']}" }).body
     employee_hashes.each do |hash|
       employees << Employee.new(hash)
     end
@@ -31,7 +31,7 @@ class Employee
   end
 
   def destroy
-    Unirest.delete("http://localhost:3000/employees/#{id}.json", headers:{ "Accept" => "application/json" }).body
+    Unirest.delete("#{ENV['API_BASE_URL']}/employees/#{id}.json", headers:{ "Accept" => "application/json", "Authorization" => "Token token=#{ENV['API_KEY']}", "X-User-Email" => "#{ENV['API_EMAIL']}" }).body
   end
 
   # def first_name

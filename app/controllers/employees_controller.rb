@@ -16,7 +16,7 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    @employee = Unirest.post("http://localhost:3000/employees.json", headers:{ "Accept" => "application/json" }, parameters:{ first_name: params[:first_name], last_name: params[:last_name], email: params[:email]}).body
+    @employee = Unirest.post("#{ENV['API_BASE_URL']}/employees.json", headers:{ "Accept" => "application/json" }, parameters:{ first_name: params[:first_name], last_name: params[:last_name], email: params[:email]}).body
     redirect_to "/employees/#{@employee['id']}"
   end
 
